@@ -1,0 +1,116 @@
+---
+// Nav.astro — Sticky navigation. Section IDs are hardcoded (does NOT read from content.ts).
+// Sections: #hero, #skills, #experience, #projects, #contact
+---
+<nav class="sticky top-0 z-50 bg-white/95 backdrop-blur-sm border-b border-gray-200" aria-label="Main navigation">
+  <div class="max-w-5xl mx-auto px-4 sm:px-6 flex items-center justify-between h-16">
+    <!-- Logo / Name anchor -->
+    <a
+      href="#hero"
+      class="text-slate-900 font-bold text-xl tracking-tight hover:text-blue-600 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 rounded"
+      aria-label="Back to top"
+    >
+      KA
+    </a>
+
+    <!-- Desktop nav links -->
+    <ul class="hidden sm:flex gap-8 list-none m-0 p-0" role="list">
+      <li>
+        <a href="#skills" class="text-gray-600 hover:text-blue-600 font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 rounded">
+          Skills
+        </a>
+      </li>
+      <li>
+        <a href="#experience" class="text-gray-600 hover:text-blue-600 font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 rounded">
+          Experience
+        </a>
+      </li>
+      <li>
+        <a href="#projects" class="text-gray-600 hover:text-blue-600 font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 rounded">
+          Projects
+        </a>
+      </li>
+      <li>
+        <a href="#contact" class="text-gray-600 hover:text-blue-600 font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 rounded">
+          Contact
+        </a>
+      </li>
+    </ul>
+
+    <!-- Mobile hamburger button -->
+    <button
+      id="nav-toggle"
+      class="sm:hidden p-2 rounded-md text-gray-700 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500"
+      aria-label="Toggle navigation menu"
+      aria-expanded="false"
+      aria-controls="mobile-menu"
+      type="button"
+    >
+      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+        <path id="icon-open" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+        <path id="icon-close" class="hidden" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+      </svg>
+    </button>
+  </div>
+
+  <!-- Mobile dropdown menu -->
+  <div id="mobile-menu" class="sm:hidden hidden border-t border-gray-200 bg-white" role="navigation" aria-label="Mobile navigation">
+    <ul class="flex flex-col py-2 list-none m-0 p-0" role="list">
+      <li>
+        <a href="#skills" class="block px-6 py-3 text-gray-700 hover:bg-gray-50 hover:text-blue-600 font-medium focus:outline-none focus:ring-2 focus:ring-inset focus:ring-blue-500">
+          Skills
+        </a>
+      </li>
+      <li>
+        <a href="#experience" class="block px-6 py-3 text-gray-700 hover:bg-gray-50 hover:text-blue-600 font-medium focus:outline-none focus:ring-2 focus:ring-inset focus:ring-blue-500">
+          Experience
+        </a>
+      </li>
+      <li>
+        <a href="#projects" class="block px-6 py-3 text-gray-700 hover:bg-gray-50 hover:text-blue-600 font-medium focus:outline-none focus:ring-2 focus:ring-inset focus:ring-blue-500">
+          Projects
+        </a>
+      </li>
+      <li>
+        <a href="#contact" class="block px-6 py-3 text-gray-700 hover:bg-gray-50 hover:text-blue-600 font-medium focus:outline-none focus:ring-2 focus:ring-inset focus:ring-blue-500">
+          Contact
+        </a>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+<script>
+  const toggle = document.getElementById('nav-toggle');
+  const menu = document.getElementById('mobile-menu');
+  const iconOpen = document.getElementById('icon-open');
+  const iconClose = document.getElementById('icon-close');
+
+  function openMenu() {
+    menu?.classList.remove('hidden');
+    toggle?.setAttribute('aria-expanded', 'true');
+    iconOpen?.classList.add('hidden');
+    iconClose?.classList.remove('hidden');
+  }
+
+  function closeMenu() {
+    menu?.classList.add('hidden');
+    toggle?.setAttribute('aria-expanded', 'false');
+    iconOpen?.classList.remove('hidden');
+    iconClose?.classList.add('hidden');
+  }
+
+  toggle?.addEventListener('click', () => {
+    const isHidden = menu?.classList.contains('hidden');
+    if (isHidden) {
+      openMenu();
+    } else {
+      closeMenu();
+    }
+  });
+
+  // Close menu when any mobile link is clicked
+  menu?.querySelectorAll('a').forEach((link) => {
+    link.addEventListener('click', closeMenu);
+  });
+</script>

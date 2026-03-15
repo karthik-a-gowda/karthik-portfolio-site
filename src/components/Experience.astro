@@ -1,0 +1,106 @@
+---
+import type { ExperienceEntry, EducationEntry } from '../content';
+
+interface Props {
+  experience: ExperienceEntry[];
+  education: EducationEntry[];
+}
+
+const { experience, education } = Astro.props;
+---
+
+<section id="experience" class="py-20 px-4 sm:px-6 bg-gray-50">
+  <div class="max-w-5xl mx-auto">
+
+    <!-- Experience heading -->
+    <div class="mb-10">
+      <h2 class="text-3xl font-bold text-gray-900 mb-2">Experience</h2>
+      <p class="text-gray-500">Professional journey and key contributions</p>
+    </div>
+
+    {experience.length === 0 ? (
+      <p class="text-gray-400 italic">Experience content coming soon.</p>
+    ) : (
+      <!-- Timeline -->
+      <div class="relative">
+        <!-- Vertical timeline line (desktop only) -->
+        <div class="hidden sm:block absolute left-6 top-2 bottom-2 w-0.5 bg-blue-200" aria-hidden="true"></div>
+
+        <div class="space-y-6">
+          {experience.map((role, index) => (
+            <article class="sm:pl-20 relative">
+              <!-- Timeline dot -->
+              <div
+                class="hidden sm:flex absolute left-0 top-3 w-12 h-12 bg-blue-600 rounded-full items-center justify-center shadow-md text-white font-bold text-sm"
+                aria-hidden="true"
+              >
+                {String(index + 1).padStart(2, '0')}
+              </div>
+
+              <div class="bg-white rounded-xl p-6 shadow-sm hover:shadow-md transition-shadow border border-gray-100">
+                <!-- Role header -->
+                <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2 mb-4">
+                  <div>
+                    <h3 class="text-lg font-bold text-gray-900 leading-snug">{role.title}</h3>
+                    <p class="text-blue-600 font-semibold">{role.company}</p>
+                  </div>
+                  <div class="sm:text-right flex-shrink-0">
+                    <p class="text-sm font-medium text-gray-600 whitespace-nowrap">
+                      {role.startDate} &mdash; {role.endDate}
+                    </p>
+                    {role.location && (
+                      <p class="text-xs text-gray-600 mt-0.5">{role.location}</p>
+                    )}
+                  </div>
+                </div>
+
+                <!-- Highlights -->
+                <ul class="space-y-2.5" role="list">
+                  {role.highlights.map((highlight) => (
+                    <li class="flex gap-3 text-sm text-gray-600 leading-relaxed" role="listitem">
+                      <svg class="w-4 h-4 mt-0.5 flex-shrink-0 text-blue-500" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
+                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                      </svg>
+                      <span>{highlight}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+    )}
+
+    <!-- Education sub-section -->
+    <div class="mt-16">
+      <div class="mb-8">
+        <h2 class="text-3xl font-bold text-gray-900 mb-2">Education</h2>
+        <p class="text-gray-500">Academic credentials</p>
+      </div>
+
+      {education.length === 0 ? (
+        <p class="text-gray-400 italic">Education content coming soon.</p>
+      ) : (
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          {education.map((edu) => (
+            <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
+              <h3 class="text-base font-bold text-gray-900 mb-1">{edu.institution}</h3>
+              <p class="text-blue-600 font-medium text-sm mb-2">{edu.degree}</p>
+              <div class="flex items-center gap-2 text-xs text-gray-500 flex-wrap">
+                <span>Class of {edu.graduationYear}</span>
+                {edu.location && (
+                  <Fragment>
+                    <span aria-hidden="true">&bull;</span>
+                    <span>{edu.location}</span>
+                  </Fragment>
+                )}
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
+
+  </div>
+</section>

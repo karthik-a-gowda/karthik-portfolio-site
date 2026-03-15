@@ -1,0 +1,44 @@
+---
+import type { SkillCategory } from '../content';
+
+interface Props {
+  skills: SkillCategory[];
+}
+
+const { skills } = Astro.props;
+---
+
+<section id="skills" class="py-20 px-4 sm:px-6 bg-white">
+  <div class="max-w-5xl mx-auto">
+
+    <!-- Section heading -->
+    <div class="mb-10">
+      <h2 class="text-3xl font-bold text-gray-900 mb-2">Skills</h2>
+      <p class="text-gray-500">Technologies, platforms, and tools I work with every day</p>
+    </div>
+
+    {skills.length === 0 ? (
+      <p class="text-gray-400 italic">Skills content coming soon.</p>
+    ) : (
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+        {skills.map((cat) => (
+          <div class="bg-gray-50 rounded-xl p-5 hover:bg-blue-50/60 hover:shadow-sm transition-all duration-200">
+            <h3 class="text-xs font-bold text-blue-700 uppercase tracking-widest mb-3">
+              {cat.category}
+            </h3>
+            <div class="flex flex-wrap gap-2" role="list" aria-label={`${cat.category} skills`}>
+              {cat.skills.map((skill) => (
+                <span
+                  class="bg-white border border-blue-100 text-gray-700 text-xs font-medium px-2.5 py-1 rounded-full shadow-sm"
+                  role="listitem"
+                >
+                  {skill}
+                </span>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+    )}
+  </div>
+</section>

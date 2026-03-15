@@ -1,0 +1,41 @@
+---
+import Nav from '../components/Nav.astro';
+import { content } from '../content';
+import '../styles/global.css';
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{content.meta.siteTitle}</title>
+    <meta name="description" content={content.meta.description} />
+    <link rel="canonical" href={content.meta.siteUrl} />
+    <meta property="og:title" content={content.meta.siteTitle} />
+    <meta property="og:description" content={content.meta.description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={content.meta.siteUrl} />
+    {content.meta.ogImage && (
+      <meta property="og:image" content={`${content.meta.siteUrl}${content.meta.ogImage}`} />
+    )}
+    <meta name="twitter:card" content="summary_large_image" />
+  </head>
+  <body class="bg-white text-gray-900 antialiased">
+    <!-- Skip link for keyboard / screen reader users -->
+    <a
+      href="#main-content"
+      class="skip-link fixed top-4 left-4 z-50 bg-white text-blue-600 font-semibold px-4 py-2 rounded shadow-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+    >
+      Skip to main content
+    </a>
+    <Nav />
+    <main id="main-content">
+      <slot />
+    </main>
+    <footer class="bg-slate-900 text-gray-400 py-8 text-center">
+      <p class="text-sm">
+        &copy; {new Date().getFullYear()} {content.profile.name}. All rights reserved.
+      </p>
+    </footer>
+  </body>
+</html>
